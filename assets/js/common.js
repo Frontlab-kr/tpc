@@ -45,80 +45,76 @@ $(document).ready(function () {
 				cursor.removeClass("active");
 			});
 	});
-	$(document).ready(function () {
-		$(".tpc-list ul").hover(
-			function () {
-				// over
-				$(".tpc-list ul").addClass("hover");
-			},
-			function () {
-				// out
-				$(".tpc-list ul li span").removeClass("hover");
-				$(".tpc-list ul li span").removeClass("prev01");
-				$(".tpc-list ul li span").removeClass("prev02");
-				$(".tpc-list ul li span").removeClass("prev03");
-				$(".tpc-list ul li span").removeClass("prev04");
-				$(".tpc-list ul li span").removeClass("next01");
-				$(".tpc-list ul li span").removeClass("next02");
-				$(".tpc-list ul li span").removeClass("next03");
-				$(".tpc-list ul li span").removeClass("next04");
-				if ($(this).hasClass("active")) {
-				} else {
-					$(".tpc-list ul").removeClass("hover");
-				}
-			}
-		);
-		$(".tpc-list ul li span").hover(
-			function () {
-				// over
-				$(".tpc-list ul li span").removeClass("hover");
-				$(".tpc-list ul li span").removeClass("prev01");
-				$(".tpc-list ul li span").removeClass("prev02");
-				$(".tpc-list ul li span").removeClass("prev03");
-				$(".tpc-list ul li span").removeClass("prev04");
-				$(".tpc-list ul li span").removeClass("next01");
-				$(".tpc-list ul li span").removeClass("next02");
-				$(".tpc-list ul li span").removeClass("next03");
-				$(".tpc-list ul li span").removeClass("next04");
-				$(".tpc-list ul").addClass("hover");
-				$(this).addClass("hover");
-				$(this).parents("li").prev("li").find("span").addClass("prev01");
-				$(this).parents("li").prev("li").prev("li").find("span").addClass("prev02");
-				$(this).parents("li").prev("li").prev("li").prev("li").find("span").addClass("prev03");
-				$(this).parents("li").prev("li").prev("li").prev("li").prev("li").find("span").addClass("prev04");
-				$(this).parents("li").next("li").find("span").addClass("next01");
-				$(this).parents("li").next("li").next("li").find("span").addClass("next02");
-				$(this).parents("li").next("li").next("li").next("li").find("span").addClass("next03");
-				$(this).parents("li").next("li").next("li").next("li").next("li").find("span").addClass("next04");
-			},
-			function () {
-				// out
-			}
-		);
-		$(".tpc-list ul li span").on("click", function () {
-			if ($(this).hasClass("active")) {
-				$(".tpc-thumbnail ul li").removeClass("active");
-				$(".tpc-list ul").removeClass("active");
-				$(".tpc-list ul").removeClass("hover");
-				$(".tpc-list ul li span").removeClass("active");
-				$(".tpc-list ul li span").removeClass("hover");
-				$(".tpc-list ul li span").removeClass("prev01");
-				$(".tpc-list ul li span").removeClass("prev02");
-				$(".tpc-list ul li span").removeClass("prev03");
-				$(".tpc-list ul li span").removeClass("prev04");
-				$(".tpc-list ul li span").removeClass("next01");
-				$(".tpc-list ul li span").removeClass("next02");
-				$(".tpc-list ul li span").removeClass("next03");
-				$(".tpc-list ul li span").removeClass("next04");
-			} else {
-				var idx = $(this).parents("li").index();
-				$(".tpc-list ul").addClass("active");
-				$(".tpc-list ul li span").removeClass("active");
-				$(this).addClass("active");
-
-				$(".tpc-thumbnail ul li").removeClass("active");
-				$(".tpc-thumbnail ul li:eq(" + idx + ")").addClass("active");
-			}
-		});
-	});
 });
+
+function rand(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+$(document).ready(function () {
+	//index
+	var moveIdx = rand(1, 3);
+	$(".tpc-index__img").addClass("tpc-index__img--move" + moveIdx);
+	AOS.init();
+
+	//list
+	$(".tpc-list ul li span, .tpc-list ul li a").hover(
+		function () {
+			// over
+			var idx = $(this).parents("li").index();
+			$(".tpc-thumbnail ul li").removeClass("active");
+			$(".tpc-thumbnail ul li:eq(" + idx + ")").addClass("active");
+		},
+		function () {
+			// out
+			$(".tpc-thumbnail ul li").removeClass("active");
+		}
+	);
+});
+
+$(document).ready(function () {
+	setTimeout(() => {
+		animateDiv($(".tpc-index__img"));
+	}, 1000);
+});
+
+function makeNewPosition($container) {
+	// Get viewport dimensions (remove the dimension of the div)
+	var h = $container.height() - 50;
+	var w = $container.width() - 50;
+
+	var nh = Math.floor(Math.random() * h);
+	var nw = Math.floor(Math.random() * w);
+
+	return [nh, nw];
+}
+
+function animateDiv($target) {
+	var newq = makeNewPosition($target.parent());
+	var oldq = $target.offset();
+	var speed = calcSpeed([oldq.top, oldq.left], newq);
+
+	$target.animate(
+		{
+			top: newq[0],
+			left: newq[1],
+		},
+		speed,
+		function () {
+			animateDiv($target);
+		}
+	);
+}
+
+function calcSpeed(prev, next) {
+	var x = Math.abs(prev[1] - next[1]);
+	var y = Math.abs(prev[0] - next[0]);
+
+	var greatest = x > y ? x : y;
+
+	var speedModifier = 0.1;
+
+	var speed = Math.ceil(greatest / speedModifier);
+
+	return speed;
+}

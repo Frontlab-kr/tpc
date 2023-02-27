@@ -39,14 +39,46 @@ body {
   width: 100%;
   height: 100%;
   -webkit-text-size-adjust: none;
-}
-
-body {
   font-family: "Poppins", "Noto Sans KR", sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.3;
   font-weight: 400;
   background: #eeeeee;
+}
+
+@media (max-width: 1800px) {
+  html,
+  body {
+    font-size: 0.938rem;
+  }
+}
+
+@media (max-width: 1700px) {
+  html,
+  body {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 1600px) {
+  html,
+  body {
+    font-size: 0.813rem;
+  }
+}
+
+@media (max-width: 1500px) {
+  html,
+  body {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  html,
+  body {
+    min-width: auto;
+  }
 }
 
 label {
@@ -171,7 +203,7 @@ input,
 button,
 select,
 textarea {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 input,
@@ -180,7 +212,7 @@ select,
 textarea {
   margin: 0;
   padding: 0;
-  font-size: 16px;
+  font-size: 1rem;
   font-family: "Noto Sans KR", sans-serif;
   color: #212529;
   -webkit-box-sizing: border-box;
@@ -320,14 +352,37 @@ time {
   display: inline;
 }
 
+.pc {
+  display: block;
+}
+
+.mo {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .pc {
+    display: none;
+  }
+  .mo {
+    display: block;
+  }
+}
+
+.tpc * {
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+
 .tpc-header {
-  padding: 50px 70px 0;
+  padding: 3.125rem 4.375rem 0;
 }
 
 .tpc-header__logo {
-  width: 252px;
-  height: 86px;
+  width: 15.75rem;
+  height: 5.375rem;
   background: url(../images/logo.png) no-repeat 50% 50%;
+  background-size: cover;
   font-size: 0;
 }
 
@@ -339,6 +394,7 @@ time {
 
 .tpc-header__logo--index {
   background: url(../images/logo_index.png) no-repeat 50% 50%;
+  background-size: cover;
 }
 
 .tpc-footer {
@@ -348,7 +404,7 @@ time {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 70px 100px;
+  padding: 4.375rem 6.25rem;
 }
 
 .tpc-footer__text {
@@ -358,20 +414,18 @@ time {
 }
 
 .tpc-footer__text dl {
-  min-width: 430px;
+  min-width: 26.875rem;
 }
 
 .tpc-footer__text dl dt {
-  margin-bottom: 36px;
-  font-size: 20px;
-  line-height: 27px;
+  margin-bottom: 2.25rem;
+  font-size: 1.25rem;
   color: #ff3b00;
   font-weight: 600;
 }
 
 .tpc-footer__text dl dd {
-  font-size: 20px;
-  line-height: 27px;
+  font-size: 1.25rem;
   color: #ff3b00;
   font-weight: 500;
 }
@@ -408,30 +462,67 @@ time {
 }
 
 .tpc-index__text {
-  font-size: 50px;
-  line-height: 60px;
-  letter-spacing: -0.5px;
+  padding: 3.125rem;
+  font-size: 3.125rem;
+  letter-spacing: -0.031rem;
   text-align: center;
   color: #ff4800;
 }
 
+.tpc-index__text a {
+  color: #ff4800;
+}
+
+@media (max-width: 768px) {
+  .tpc-index__text {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+}
+
 .tpc-index__img {
-  position: absolute;
+  position: fixed;
   top: 30%;
   left: 60%;
   z-index: 100;
 }
 
-.tpc-list {
-  padding: 90px;
+.tpc-index__img img {
+  width: 21.875rem;
 }
 
-.tpc-list ul.hover li span {
-  font-size: 80px;
+.tpc-index__img--move1 {
+  top: 10%;
+  left: 80%;
+}
+
+.tpc-index__img--move2 {
+  top: 50%;
+  left: 10%;
+}
+
+.tpc-index__img--move3 {
+  top: 40%;
+  left: 50%;
+}
+
+@media (max-width: 768px) {
+  .tpc-index__img {
+    display: none;
+  }
+}
+
+.tpc-list {
+  padding: 5.625rem;
+}
+
+.tpc-list ul:hover li span,
+.tpc-list ul:hover li a {
   color: #cccccc;
 }
 
-.tpc-list ul li span {
+.tpc-list ul li span,
+.tpc-list ul li a {
   position: relative;
   color: #000;
   font-size: 105px;
@@ -442,7 +533,8 @@ time {
   transition: all 0.2s ease;
 }
 
-.tpc-list ul li span::before {
+.tpc-list ul li span::before,
+.tpc-list ul li a::before {
   content: "Click!";
   display: -webkit-box;
   display: -ms-flexbox;
@@ -466,7 +558,8 @@ time {
   transition: all 0.2s ease;
 }
 
-.tpc-list ul li span::after {
+.tpc-list ul li span::after,
+.tpc-list ul li a::after {
   content: "Click!";
   display: -webkit-box;
   display: -ms-flexbox;
@@ -492,65 +585,43 @@ time {
   opacity: 0;
 }
 
-.tpc-list ul li span.hover:after {
+.tpc-list ul li span:hover,
+.tpc-list ul li a:hover {
+  color: #000;
+}
+
+.tpc-list ul li span:hover:after,
+.tpc-list ul li a:hover:after {
   opacity: 1;
 }
 
-.tpc-list ul li span.active::before {
+.tpc-list ul li span.active::before,
+.tpc-list ul li a.active::before {
   -webkit-transform: rotate(135deg);
           transform: rotate(135deg);
 }
 
-.tpc-list ul li span.active:after {
+.tpc-list ul li span.active:after,
+.tpc-list ul li a.active:after {
   opacity: 0;
 }
 
-.tpc-list ul li span.prev04 {
-  font-size: 85px;
-}
-
-.tpc-list ul li span.prev03 {
-  font-size: 90px;
-}
-
-.tpc-list ul li span.prev02 {
-  font-size: 95px;
-}
-
-.tpc-list ul li span.prev01 {
-  font-size: 100px;
-}
-
-.tpc-list ul li span.hover {
+.tpc-list ul li span.hover,
+.tpc-list ul li a.hover {
   font-size: 105px;
   color: #000;
 }
 
-.tpc-list ul li span.active {
+.tpc-list ul li span.active,
+.tpc-list ul li a.active {
   font-size: 105px;
   color: #000;
-}
-
-.tpc-list ul li span.next01 {
-  font-size: 100px;
-}
-
-.tpc-list ul li span.next02 {
-  font-size: 95px;
-}
-
-.tpc-list ul li span.next03 {
-  font-size: 90px;
-}
-
-.tpc-list ul li span.next04 {
-  font-size: 85px;
 }
 
 .tpc-thumbnail {
   position: fixed;
-  top: 235px;
-  right: 100px;
+  top: 14.688rem;
+  right: 6.25rem;
 }
 
 .tpc-thumbnail ul li {
@@ -566,6 +637,42 @@ time {
 .tpc-thumbnail ul li.active {
   opacity: 1;
   z-index: 20;
+}
+
+.tpc-thumbnail ul li img {
+  width: 31.25rem;
+}
+
+.tpc-view {
+  padding: 100px;
+}
+
+.tpc-view__profile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.tpc-view__profile strong {
+  font-size: 50px;
+}
+
+.tpc-view__profile img {
+  margin: -100px -100px 0 0;
+}
+
+.tpc-view__archive ul {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.tpc-view__archive ul li img {
+  width: 100%;
 }
 
 .cursor {

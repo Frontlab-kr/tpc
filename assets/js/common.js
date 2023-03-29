@@ -1,7 +1,8 @@
 $(document).ready(function () {
 	$(function () {
 		// CURSOR
-		var cursor = $(".cursor");
+		var cursor = $(".cursor"),
+			circle = $(".cursor-circle");
 
 		var posX = 0,
 			posY = 0;
@@ -13,6 +14,13 @@ $(document).ready(function () {
 			onRepeat: function () {
 				posX += (mouseX - posX) / 9;
 				posY += (mouseY - posY) / 9;
+
+				TweenMax.set(circle, {
+					css: {
+						left: posX - 2,
+						top: posY - 2,
+					},
+				});
 
 				TweenMax.set(cursor, {
 					css: {
@@ -37,15 +45,44 @@ $(document).ready(function () {
 			});
 
 		// link area css
+
 		$(".link")
 			.on("mouseenter", function () {
 				cursor.addClass("active");
+				circle.addClass("active");
 			})
 			.on("mouseleave", function () {
 				cursor.removeClass("active");
+				circle.removeClass("active");
+			});
+
+		$(".link-white")
+			.on("mouseenter", function () {
+				cursor.addClass("active");
+				circle.addClass("active-white");
+			})
+			.on("mouseleave", function () {
+				cursor.removeClass("active");
+				circle.removeClass("active-white");
+			});
+
+		$(".link-cursor")
+			.on("mouseenter", function () {
+				cursor.addClass("hide");
+				circle.addClass("hide");
+			})
+			.on("mouseleave", function () {
+				cursor.removeClass("hide");
+				circle.removeClass("hide");
 			});
 	});
 });
+
+const setVh = () => {
+	document.documentElement.style.setProperty("--vh", `${window.innerHeight}px`);
+};
+window.addEventListener("resize", setVh);
+setVh();
 
 function rand(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -70,12 +107,23 @@ $(document).ready(function () {
 			$(".tpc-thumbnail ul li").removeClass("active");
 		}
 	);
-});
 
-$(document).ready(function () {
-	setTimeout(() => {
-		animateDiv($(".tpc-index__img"));
-	}, 1000);
+	$("[data-plugin='magnificPopup']").magnificPopup({
+		type: "image",
+		fixedContentPos: true,
+		removalDelay: 500,
+		preloader: true,
+		callbacks: {
+			beforeOpen: function beforeOpen() {
+				this.st.image.markup = this.st.image.markup.replace("mfp-figure", "mfp-figure mfp-with-anim");
+				this.st.mainClass = this.st.el.attr("data-effect");
+			},
+			open: function () {
+				$(".mfp-container").addClass("vertical-align");
+			},
+		},
+		closeOnContentClick: true,
+	});
 });
 
 function makeNewPosition($container) {

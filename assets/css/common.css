@@ -542,7 +542,7 @@ time {
 .tpc-index__text {
 	padding: 3.125rem;
 	/* font-size: 3.125rem; */
-	font-size: 4.125rem;
+	font-size: 4.5rem;
 	font-weight: 600;
 	letter-spacing: -0.031rem;
 	text-align: center;
@@ -555,8 +555,8 @@ time {
 
 @media (max-width: 800px) {
 	.tpc-index__text {
-		font-size: 2.8rem;
-		/* font-size: 5rem; */
+		/* font-size: 2.8rem; */
+		font-size: 5rem;
 	}
 }
 
@@ -1012,9 +1012,9 @@ time {
 }
 
 @media (max-width: 800px) {
-	/* .cursor {
+	.cursor {
 		display: none;
-	} */
+	}
 }
 
 .cursor.active {
